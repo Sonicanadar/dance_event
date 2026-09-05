@@ -1,5 +1,5 @@
 /* ==========================================================================
-   STEP 'N' STYLE LOGIC ENGINE: RESPONSIVE INTERACTION PACK
+   STEP 'N' STYLE LOGIC ENGINE: RESPONSIVE INTERACTION PACK - PART 1
    ========================================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -33,22 +33,20 @@ document.addEventListener("DOMContentLoaded", () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('reveal-live');
-                observer.unobserve(entry.target); // Stops computing tracking once visible
+                observer.unobserve(entry.target); 
             }
         });
     }, {
-        threshold: 0.15, // Triggers layout switch when 15% visible on frame viewport
-        rootMargin: "0px 0px -50px 0px"
+        threshold: 0.15,
+        rootMargin: "0px 0px -40px 0px"
     });
 
     animatedElements.forEach(element => revealObserver.observe(element));
 
     // --- 4. Interactive Showcase Dynamic Template Engine ---
-    // (Only runs if elements are detected directly on the live document layer path)
     const playlistContainer = document.getElementById('playlistDynamicContainer');
     const categoryTabs = document.querySelectorAll('.category-tab');
 
-    // Local variable multi-video mapping playlist object schema arrays
     const playlistDatabase = {
         weddings: [
             {
@@ -61,8 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
             {
                 title: "Family Sangeet Fusion Mashup",
                 desc: "High-octane block-rocking group performance synchronization routines.",
-                videoSrc: "videos/wedding-2.mp4",
-                poster: "images/wedding-thumb-2.jpg",
+                videoSrc: "videos/video1.mp4",
+                poster: "images/soni1.jpg",
                 fullDetails: "Get the cousins, aunts, and grandparents dancing in perfect lockstep. Features highly intuitive group spacing transitions that clean up effortlessly on high-def party cameras."
             }
         ],
@@ -70,8 +68,15 @@ document.addEventListener("DOMContentLoaded", () => {
             {
                 title: "Sweet 16 Urban Showcase",
                 desc: "Slick, cutting-edge commercial hip-hop street routines.",
-                videoSrc: "videos/birthday-1.mp4",
-                poster: "images/birthday-thumb-1.jpg",
+                videoSrc: "videos/video1.mp4",
+                poster: "images/soni1.jpg",
+                fullDetails: "Turn up the bass energy with intense, modern rhythmic loops matching chart-topping audio clips. Ideal for teens and dynamic youth birthday events."
+            },
+            {
+                title: "Sweet 1 Urban Showcase",
+                desc: "Slick, cutting-edge commercial hip-hop street routines.",
+                videoSrc: "videos/video1.mp4",
+                poster: "images/soni1.jpg",
                 fullDetails: "Turn up the bass energy with intense, modern rhythmic loops matching chart-topping audio clips. Ideal for teens and dynamic youth birthday events."
             }
         ],
@@ -79,8 +84,8 @@ document.addEventListener("DOMContentLoaded", () => {
             {
                 title: "Gala Keynote Flashmob Opening",
                 desc: "morales-boosting hidden choreography launch tracking blocks.",
-                videoSrc: "videos/corporate-gala.mp4",
-                poster: "images/corporate-thumb.jpg",
+                videoSrc: "videos/video1.mp4",
+                poster: "images/soni1.jpg",
                 fullDetails: "Surprise corporate attendees, push client metrics, and build company value using energetic routines choreographed directly for teams and executive leadership panels."
             }
         ]
@@ -93,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const activeDescription = document.getElementById('activeDescription');
         
         function loadSidebarCategoryPlaylist(categoryKey) {
-            playlistContainer.innerHTML = ''; // Wipe panel container inputs out cleanly
+            playlistContainer.innerHTML = ''; 
             const dynamicList = playlistDatabase[categoryKey];
             
             dynamicList.forEach((showreel, index) => {
@@ -110,7 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                 `;
                 
-                // Clicking triggers reactive data update pipeline variables execution mapping
                 card.addEventListener('click', () => {
                     document.querySelectorAll('.video-card').forEach(c => c.classList.remove('active'));
                     card.classList.add('active');
@@ -118,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     mainPlayer.setAttribute('poster', showreel.poster);
                     mainSource.setAttribute('src', showreel.videoSrc);
                     mainPlayer.load();
-                    mainPlayer.play().catch(() => console.log('Autoplay deferred until active client trigger event matches'));
+                    mainPlayer.play().catch(() => console.log('Autoplay deferred until client trigger'));
                     
                     activeTitle.textContent = showreel.title;
                     activeDescription.textContent = showreel.fullDetails;
@@ -127,8 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 playlistContainer.appendChild(card);
             });
 
-            // Populate active default index 0 state inside primary display theater panel cards natively
-            if (dynamicList[0]) {
+            if (dynamicList && dynamicList[0]) {
                 mainPlayer.setAttribute('poster', dynamicList[0].poster);
                 mainSource.setAttribute('src', dynamicList[0].videoSrc);
                 mainPlayer.load();
@@ -137,7 +140,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // Tab menu click switcher logic blocks
         categoryTabs.forEach(tab => {
             tab.addEventListener('click', function() {
                 categoryTabs.forEach(t => t.classList.remove('active'));
@@ -146,11 +148,9 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
-        // Initialize display configuration using default category targets
         loadSidebarCategoryPlaylist('weddings');
     }
-
-        // --- 5. Contact Consultation Form Submissions Pipeline ---
+    // --- 5. Contact Consultation Form Submissions Pipeline ---
     const contactForm = document.getElementById('mainContactForm');
     const modalOverlay = document.getElementById('bookingModalOverlay');
     const modalMessage = document.getElementById('modalDynamicMessage');
@@ -161,36 +161,72 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     if (contactForm && modalOverlay && modalMessage) {
-        // Handle standard form submission mapping
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            
+            // 1. Gather all form inputs dynamically
             const clientName = document.getElementById('fullName').value;
+            const emailAddress = document.getElementById('emailAddress').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const eventType = document.getElementById('eventType').value;
+            const dancerCount = document.getElementById('dancerCount').value;
+            const budgetBracket = document.getElementById('budgetBracket').value;
+            const visionDetails = document.getElementById('visionDetails').value || "None provided";
+
+            // 2. Format the message text string for WhatsApp with clear spacing and bold headers
+            let waMessage = `✨ *Step 'n' Style Booking Request* ✨\n\n`;
+            waMessage += `👤 *Name:* ${clientName}\n`;
+            waMessage += `✉️ *Email:* ${emailAddress}\n`;
+            waMessage += `📞 *Phone:* ${phoneNumber}\n`;
+            waMessage += `💍 *Event Type:* ${eventType}\n`;
+            waMessage += `👥 *Dancers:* ${dancerCount}\n`;
+            waMessage += `💰 *Budget Package:* ${budgetBracket}\n`;
+            waMessage += `📝 *Vision Details:* ${visionDetails}`;
+
+            // 3. Encode the text string so it works safely inside a browser URL path
+            const encodedMessage = encodeURIComponent(waMessage);
+
+            // 4. Set target WhatsApp Phone Number (Format: CountryCode + Number, no spaces or + symbols)
+            // UPDATE THIS: Replace 919876543210 with your real corporate WhatsApp number
+            const whatsappNumber = "918976029973"; 
+            const whatsappURL = `https://wa.me/{whatsappNumber}?text=${encodedMessage}`;
+
+            // 5. Inject confirmation copy into the interactive frosted glass layer overlay popup box
+            modalMessage.innerHTML = `Brilliant choice, <span class="highlight" style="font-weight:800;">${clientName}</span>!<br><br>Step 'n' Style has generated your performance roadmap profile. Click below to send your details directly via WhatsApp!`;
             
-            // Inject structural user tracking metrics data dynamically into modal content path
-            modalMessage.innerHTML = `Brilliant choice, <span class="highlight" style="font-weight:800;">${clientName}</span>!<br><br>Step 'n' Style has safely received your performance roadmap profile requests. Check your email shortly for choreography coordination tracking loops!`;
-            
-            // Pop the dynamic canvas box layer visual wrapper open
+            // 6. Reveal the confirmation layout modal wrapper open on the UI viewport surface layer
             modalOverlay.classList.add('modal-visible');
-            contactForm.reset();
+
+            // 7. Reconfigure the modal action CTA click target button dynamically to execute redirection routing
+            const modalActionBtn = document.getElementById('modalActionBtn');
+            if (modalActionBtn) {
+                const newActionBtn = modalActionBtn.cloneNode(true);
+                newActionBtn.textContent = "Send to WhatsApp 🚀";
+                modalActionBtn.parentNode.replaceChild(newActionBtn, modalActionBtn);
+                
+                newActionBtn.addEventListener('click', () => {
+                    window.open(whatsappURL, '_blank');
+                    modalOverlay.classList.remove('modal-visible');
+                    contactForm.reset();
+                });
+            }
         });
 
-        // Loop through close mechanics triggers safely (X button, CTA button, overlay click)
+        // Loop through standard closing canvas click coordinates mechanics (X button, modal overlay background clicks)
         closeModalElements.forEach(element => {
-            if (element) {
+            if (element && element.id !== 'modalActionBtn') {
                 element.addEventListener('click', (e) => {
-                    // If clicking the overlay background wrapper itself, ensure it's not a bubbled child event click
                     if (element === modalOverlay && e.target !== modalOverlay) return;
                     modalOverlay.classList.remove('modal-visible');
                 });
             }
         });
 
-        // Keydown listener tracking to clean up display layer panel states via Escape keyboard entry mapping
+        // Keydown listener tracking to wipe display canvas layer panels via Escape keyboard entries natively
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && modalOverlay.classList.contains('modal-visible')) {
                 modalOverlay.classList.remove('modal-visible');
             }
         });
     }
-
 });
