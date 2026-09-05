@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 'n' Style | Dance Event Management</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://googleapis.com" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Unified Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">Step 'n' <span>Style</span></div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="showcase.html">Event Showcase</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(11,11,14,1)), url('images/hero-bg.jpg') no-repeat center center/cover;">
+        <div class="hero-content">
+            <h1>ELEVATING YOUR <span class="highlight">EVENTS</span> THROUGH MOVEMENT</h1>
+            <p>Bespoke dance choreography and complete event management for Weddings, Birthdays, and Corporate Galas.</p>
+            <div class="hero-buttons">
+                <a href="showcase.html" class="btn">Explore Showreels</a>
+                <a href="about.html" class="btn secondary-btn">Meet The Team</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Quick Services Overview Section -->
+    <section class="overview-section">
+        <h2>What We <span class="highlight">Do Best</span></h2>
+        <div class="overview-grid">
+            <div class="overview-card">
+                <h3>💍 Weddings</h3>
+                <p>Magical first dances, flashmobs, and energetic Sangeet choreography tailored for all skill levels.</p>
+            </div>
+            <div class="overview-card">
+                <h3>🎂 Birthdays</h3>
+                <p>High-energy commercial themes, custom kids jams, and surprise dance routines that hype up the crowd.</p>
+            </div>
+            <div class="overview-card">
+                <h3>🏢 Corporate</h3>
+                <p>Morale-boosting flashmobs, slick stage openings, and coordinated routine mapping for brand launches.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Interactive Booking Confirmation Modal Overlay -->
+<div id="bookingModalOverlay" class="modal-overlay">
+    <div class="modal-box">
+        <button id="closeModalBtn" class="modal-close-x">&times;</button>
+        <div class="modal-icon">✨</div>
+        <h3>Booking Received!</h3>
+        <p id="modalDynamicMessage">Thank you for reaching out.</p>
+        <div class="modal-footer">
+            <button id="modalActionBtn" class="btn">Let's Groove</button>
+        </div>
+    </div>
+</div>
+
+
+    <footer>
+        <p>&copy; 2026 Step 'n' Style. Engineered for seamless performance.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
