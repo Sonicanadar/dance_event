@@ -1,24 +1,26 @@
 /* ==========================================================================
-   STEP 'N' STYLE LOGIC ENGINE: RESPONSIVE INTERACTION PACK - PART 1
+   STEP 'N' STYLE LOGIC ENGINE: RESPONSIVE INTERACTION PACK
    ========================================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
     
     // --- 1. Dynamic Frost Navbar Scale Controls ---
     const navbar = document.querySelector(".navbar");
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add("scrolled");
-        } else {
-            navbar.classList.remove("scrolled");
-        }
-    });
+    if (navbar) {
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+    }
 
     // --- 2. Responsive Mobile Hamburger Open Controller ---
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const navLinks = document.getElementById('navLinks');
 
-    if (hamburgerBtn) {
+    if (hamburgerBtn && navLinks) {
         hamburgerBtn.addEventListener('click', () => {
             navLinks.classList.toggle('mobile-active');
         });
@@ -29,23 +31,28 @@ document.addEventListener("DOMContentLoaded", () => {
         '.overview-section, .about-container, .contact-container, .dashboard-container'
     );
     
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('reveal-live');
-                observer.unobserve(entry.target); 
-            }
+    if (animatedElements.length > 0) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-live');
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: "0px 0px -40px 0px"
         });
-    }, {
-        threshold: 0.15,
-        rootMargin: "0px 0px -40px 0px"
-    });
 
-    animatedElements.forEach(element => revealObserver.observe(element));
-
+        animatedElements.forEach(element => revealObserver.observe(element));
+    }
     // --- 4. Interactive Showcase Dynamic Template Engine ---
     const playlistContainer = document.getElementById('playlistDynamicContainer');
     const categoryTabs = document.querySelectorAll('.category-tab');
+    const mainPlayer = document.getElementById('mainVideoPlayer');
+    const mainSource = document.getElementById('mainVideoSource');
+    const activeTitle = document.getElementById('activeTitle');
+    const activeDescription = document.getElementById('activeDescription');
 
     const playlistDatabase = {
         weddings: [
@@ -83,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
         corporate: [
             {
                 title: "Gala Keynote Flashmob Opening",
-                desc: "morales-boosting hidden choreography launch tracking blocks.",
+                desc: "morale-boosting hidden choreography launch tracking blocks.",
                 videoSrc: "videos/video1.mp4",
                 poster: "images/soni1.jpg",
                 fullDetails: "Surprise corporate attendees, push client metrics, and build company value using energetic routines choreographed directly for teams and executive leadership panels."
@@ -91,16 +98,14 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
     };
 
-    if (playlistContainer && categoryTabs.length > 0) {
-        const mainPlayer = document.getElementById('mainVideoPlayer');
-        const mainSource = document.getElementById('mainVideoSource');
-        const activeTitle = document.getElementById('activeTitle');
-        const activeDescription = document.getElementById('activeDescription');
+    if (playlistContainer && categoryTabs.length > 0 && mainPlayer && mainSource && activeTitle && activeDescription) {
         
         function loadSidebarCategoryPlaylist(categoryKey) {
             playlistContainer.innerHTML = ''; 
             const dynamicList = playlistDatabase[categoryKey];
             
+            if (!dynamicList || dynamicList.length === 0) return;
+
             dynamicList.forEach((showreel, index) => {
                 const card = document.createElement('div');
                 card.className = `video-card ${index === 0 ? 'active' : ''}`;
@@ -131,13 +136,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 playlistContainer.appendChild(card);
             });
 
-            if (dynamicList && dynamicList[0]) {
-                mainPlayer.setAttribute('poster', dynamicList[0].poster);
-                mainSource.setAttribute('src', dynamicList[0].videoSrc);
-                mainPlayer.load();
-                activeTitle.textContent = dynamicList[0].title;
-                activeDescription.textContent = dynamicList[0].fullDetails;
-            }
+            // Set primary display panel showcase defaults to target active index item 0 data mapping safely
+            mainPlayer.setAttribute('poster', dynamicList[0].poster);
+            mainSource.setAttribute('src', dynamicList[0].videoSrc);
+            mainPlayer.load();
+            activeTitle.textContent = dynamicList[0].title;
+            activeDescription.textContent = dynamicList[0].fullDetails;
         }
 
         categoryTabs.forEach(tab => {
@@ -148,19 +152,14 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
+        // Initialize default view showcase channel content layer data mapping sets
         loadSidebarCategoryPlaylist('weddings');
     }
-    // --- 5. Contact Consultation Form Submissions Pipeline ---
+      // --- 5. Contact Consultation Form Submissions Pipeline ---
     const contactForm = document.getElementById('mainContactForm');
-    const modalOverlay = document.getElementById('bookingModalOverlay');
-    const modalMessage = document.getElementById('modalDynamicMessage');
-    const closeModalElements = [
-        document.getElementById('closeModalBtn'),
-        document.getElementById('modalActionBtn'),
-        modalOverlay
-    ];
+    const bookingWrapper = document.querySelector('.booking-form-wrapper');
 
-    if (contactForm && modalOverlay && modalMessage) {
+    if (contactForm && bookingWrapper) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
@@ -173,7 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const budgetBracket = document.getElementById('budgetBracket').value;
             const visionDetails = document.getElementById('visionDetails').value || "None provided";
 
-            // 2. Format the message text string for WhatsApp with clear spacing and bold headers
+            // 2. Format the message text string for WhatsApp with clean spacing and bold headers
             let waMessage = `✨ *Step 'n' Style Booking Request* ✨\n\n`;
             waMessage += `👤 *Name:* ${clientName}\n`;
             waMessage += `✉️ *Email:* ${emailAddress}\n`;
@@ -186,47 +185,73 @@ document.addEventListener("DOMContentLoaded", () => {
             // 3. Encode the text string so it works safely inside a browser URL path
             const encodedMessage = encodeURIComponent(waMessage);
 
-            // 4. Set target WhatsApp Phone Number (Format: CountryCode + Number, no spaces or + symbols)
-            // UPDATE THIS: Replace 919876543210 with your real corporate WhatsApp number
+            // 4. Set target WhatsApp Phone Number
             const whatsappNumber = "918976029973"; 
-            const whatsappURL = `https://wa.me/{whatsappNumber}?text=${encodedMessage}`;
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
-            // 5. Inject confirmation copy into the interactive frosted glass layer overlay popup box
-            modalMessage.innerHTML = `Brilliant choice, <span class="highlight" style="font-weight:800;">${clientName}</span>!<br><br>Step 'n' Style has generated your performance roadmap profile. Click below to send your details directly via WhatsApp!`;
-            
-            // 6. Reveal the confirmation layout modal wrapper open on the UI viewport surface layer
-            modalOverlay.classList.add('modal-visible');
+            // 5. Replace the form with a seamless, clean WhatsApp submission card layout
+            bookingWrapper.innerHTML = `
+                <div class="form-success-alert" style="text-align: center; padding: 20px 10px; opacity: 0; transform: translateY(10px); transition: all 0.5s ease-out;">
+                    <div class="modal-icon" style="font-size: 3.5rem; margin-bottom: 15px; text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);">✨</div>
+                    <h3 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 15px; text-transform: uppercase; letter-spacing: -0.5px;">
+                        Roadmap Profile Ready!
+                    </h3>
+                    <p style="color: #a0a0ab; font-size: 1rem; line-height: 1.6; margin-bottom: 30px;">
+                        Brilliant choice, <span class="highlight" style="font-weight:800; color: #ff007f; text-shadow: 0 0 15px rgba(255, 0, 127, 0.4);">${clientName}</span>!<br><br>
+                        Step 'n' Style has generated your performance breakdown. Click below to securely send your details directly to our team via WhatsApp!
+                    </p>
+                    <a href="${whatsappURL}" target="_blank" class="btn full-width-btn" id="whatsappDirectBtn" style="text-decoration: none; display: block; box-sizing: border-box;">
+                        Send to WhatsApp 🚀
+                    </a>
+                    <button id="resetFormBtn" style="background: transparent; border: none; color: #666; font-size: 0.85rem; margin-top: 20px; cursor: pointer; text-decoration: underline; font-weight: 700; transition: color 0.3s;">
+                        Fill out another request
+                    </button>
+                </div>
+            `;
 
-            // 7. Reconfigure the modal action CTA click target button dynamically to execute redirection routing
-            const modalActionBtn = document.getElementById('modalActionBtn');
-            if (modalActionBtn) {
-                const newActionBtn = modalActionBtn.cloneNode(true);
-                newActionBtn.textContent = "Send to WhatsApp 🚀";
-                modalActionBtn.parentNode.replaceChild(newActionBtn, modalActionBtn);
-                
-                newActionBtn.addEventListener('click', () => {
-                    window.open(whatsappURL, '_blank');
-                    modalOverlay.classList.remove('modal-visible');
-                    contactForm.reset();
+            // Trigger a quick micro-timeout animation hook to smoothly slide up the new content
+            const successAlert = bookingWrapper.querySelector('.form-success-alert');
+            setTimeout(() => {
+                if (successAlert) {
+                    successAlert.style.opacity = '1';
+                    successAlert.style.transform = 'translateY(0)';
+                }
+            }, 50);
+
+            // 6. Reset listener function to reconstruct the original empty form state if requested
+            const resetBtn = document.getElementById('resetFormBtn');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    location.reload(); // Quickest, safest way to restore your entire pristine template layout map
                 });
-            }
-        });
-
-        // Loop through standard closing canvas click coordinates mechanics (X button, modal overlay background clicks)
-        closeModalElements.forEach(element => {
-            if (element && element.id !== 'modalActionBtn') {
-                element.addEventListener('click', (e) => {
-                    if (element === modalOverlay && e.target !== modalOverlay) return;
-                    modalOverlay.classList.remove('modal-visible');
-                });
-            }
-        });
-
-        // Keydown listener tracking to wipe display canvas layer panels via Escape keyboard entries natively
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modalOverlay.classList.contains('modal-visible')) {
-                modalOverlay.classList.remove('modal-visible');
             }
         });
     }
+        // --- 6. Automated Light/Dark Theme Switching Module ---
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    
+    if (themeToggleBtn) {
+        // Check user browser cache memory to instantly remember their chosen theme settings
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'light') {
+            document.body.classList.add('light-mode');
+            themeToggleBtn.textContent = '☀️';
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            
+            let theme = 'dark';
+            if (document.body.classList.contains('light-mode')) {
+                theme = 'light';
+                themeToggleBtn.textContent = '☀️';
+            } else {
+                themeToggleBtn.textContent = '🌙';
+            }
+            
+            // Save state selection value profiles locally inside window localStorage caches
+            localStorage.setItem('theme', theme);
+        });
+    }
+
 });
