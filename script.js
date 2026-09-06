@@ -16,15 +16,34 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- 2. Responsive Mobile Hamburger Open Controller ---
+        // --- 2. Responsive Mobile Hamburger Open Controller (FIXED) ---
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const navLinks = document.getElementById('navLinks');
 
     if (hamburgerBtn && navLinks) {
-        hamburgerBtn.addEventListener('click', () => {
+        // Toggle menu open and close cleanly when clicking the hamburger lines button
+        hamburgerBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Protect against unexpected document body click event overlaps
             navLinks.classList.toggle('mobile-active');
         });
+
+        // AUTO-CLOSE FEATURE: Find all links inside your navigation drawer menu list
+        const menuItems = navLinks.querySelectorAll('a');
+        menuItems.forEach(link => {
+            link.addEventListener('click', () => {
+                // Instantly remove the visibility class drawer as soon as any link item is clicked
+                navLinks.classList.remove('mobile-active');
+            });
+        });
+
+        // OPTIONAL BACKUP: Close the navigation panel if the user clicks anywhere else outside the drawer area
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+                navLinks.classList.remove('mobile-active');
+            }
+        });
     }
+
 
     // --- 3. Kinetic Fade-in Intersection Scroll Observer ---
     const animatedElements = document.querySelectorAll(

@@ -649,3 +649,43 @@ body.light-mode .hamburger span {
         background-color: #ffffff !important;
     }
 }
+/* ==========================================================================
+   --- 12. FLEXIBLE RESPONSIVE VIDEOS THEATER HUB MOBILE BREAKPOINTS --- 
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* 1. Dissolve side-by-side columns into a vertical display layout track */
+    .showcase-theater-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+
+    /* 2. Remove fixed height caps and permit cards to stretch dynamically */
+    .playlist-sidebar-block {
+        max-height: none !important;
+        padding: 15px !important;
+    }
+
+    /* 3. Reconfigure card layout blocks to scale cleanly on cell phones */
+    .video-card {
+        padding: 10px !important;
+        gap: 12px !important;
+        align-items: center;
+    }
+
+    /* 4. Increase thumbnail image boundaries so the text content doesn't squeeze */
+    .card-thumb {
+        width: 80px !important;
+        height: 55px !important;
+    }
+
+    .card-info h4 {
+        font-size: 0.9rem !important;
+        margin-bottom: 2px !important;
+    }
+
+    .card-info p {
+        font-size: 0.75rem !important;
+        line-height: 1.4 !important;
+        -webkit-line-clamp: 2 !important; /* Keep description cleanly capped at 2 lines */
+    }
+}
