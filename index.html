@@ -607,6 +607,235 @@ nav .wa-icon-btn, nav a[href*="wa.me"], nav .whatsapp-btn, nav .whatsapp-link { 
 }
 </style>
 
+
+
+
+
+<style id="gallery-peek-bright-fix">
+/* Performance Gallery: bright active video with only the neighboring cards faint. */
+#gallery .gallery{
+  display:flex!important;
+  flex-wrap:nowrap!important;
+  gap:12px!important;
+  width:100%!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  padding:10px 0 20px!important;
+  scroll-snap-type:x mandatory!important;
+  scroll-behavior:smooth!important;
+  -webkit-overflow-scrolling:touch!important;
+  scrollbar-width:none!important;
+  overscroll-behavior-x:contain!important;
+}
+#gallery .gallery::-webkit-scrollbar{display:none!important}
+
+#gallery .gallery .g{
+  flex:0 0 74%!important;
+  width:74%!important;
+  min-width:74%!important;
+  max-width:74%!important;
+  height:auto!important;
+  min-height:0!important;
+  grid-column:auto!important;
+  scroll-snap-align:center!important;
+
+  /* Neighbors are only slightly faded, not blacked out. */
+  opacity:.55!important;
+  filter:brightness(.82)!important;
+  transform:scale(.90)!important;
+  transition:opacity .22s ease,filter .22s ease,transform .22s ease!important;
+  position:relative!important;
+  z-index:1!important;
+}
+
+#gallery .gallery .g.gallery-active{
+  opacity:1!important;
+  filter:brightness(1.12)!important;
+  transform:scale(1)!important;
+  z-index:3!important;
+  box-shadow:0 14px 45px rgba(0,0,0,.35)!important;
+}
+
+#gallery .gallery .g img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  aspect-ratio:16/9!important;
+  object-fit:cover!important;
+}
+
+.gallery-nav-v24{
+  position:absolute;
+  top:50%;
+  left:0;
+  right:0;
+  transform:translateY(-50%);
+  display:flex;
+  justify-content:space-between;
+  padding:0 8px;
+  z-index:10;
+  pointer-events:none;
+}
+.gallery-nav-v24 button{
+  pointer-events:auto;
+  width:42px;height:42px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.38);
+  background:rgba(15,15,20,.70);
+  color:#fff;
+  font-size:28px;
+  line-height:1;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  backdrop-filter:blur(6px);
+}
+.gallery-nav-v24 button:disabled{opacity:.25}
+
+@media(max-width:600px){
+  #gallery .gallery{gap:8px!important}
+  #gallery .gallery .g{
+    flex-basis:78%!important;
+    width:78%!important;
+    min-width:78%!important;
+    max-width:78%!important;
+  }
+  .gallery-nav-v24{padding:0 2px}
+  .gallery-nav-v24 button{width:38px;height:38px;font-size:25px}
+}
+</style>
+
+<script id="gallery-peek-bright-js">
+(function(){
+  function init(){
+    var gallery=document.querySelector('#gallery .gallery');
+    if(!gallery) return;
+    var cards=Array.prototype.slice.call(gallery.querySelectorAll('.g'));
+    if(!cards.length) return;
+
+    var container=document.querySelector('#gallery .container');
+    if(!container) return;
+
+    var old=container.querySelector('.gallery-nav-v24');
+    if(old) old.remove();
+
+    var nav=document.createElement('div');
+    nav.className='gallery-nav-v24';
+    nav.innerHTML='<button type="button" aria-label="Previous video" class="gp-prev">‹</button>'+
+                 '<button type="button" aria-label="Next video" class="gp-next">›</button>';
+    container.appendChild(nav);
+
+    var prev=nav.querySelector('.gp-prev');
+    var next=nav.querySelector('.gp-next');
+
+    function activeIndex(){
+      var center=gallery.getBoundingClientRect().left + gallery.clientWidth/2;
+      var best=0, distance=Infinity;
+      cards.forEach(function(card,i){
+        var r=card.getBoundingClientRect();
+        var d=Math.abs((r.left+r.width/2)-center);
+        if(d<distance){distance=d;best=i;}
+      });
+      return best;
+    }
+
+    function update(){
+      var i=activeIndex();
+      cards.forEach(function(card,n){
+        card.classList.toggle('gallery-active',n===i);
+      });
+      prev.disabled=i===0;
+      next.disabled=i===cards.length-1;
+    }
+
+    function go(i){
+      i=Math.max(0,Math.min(cards.length-1,i));
+      cards[i].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+      setTimeout(update,100);
+      setTimeout(update,400);
+    }
+
+    prev.addEventListener('click',function(){go(activeIndex()-1);});
+    next.addEventListener('click',function(){go(activeIndex()+1);});
+    gallery.addEventListener('scroll',function(){requestAnimationFrame(update);},{passive:true});
+    window.addEventListener('resize',update);
+
+    /* Make the first video bright immediately. */
+    cards[0].classList.add('gallery-active');
+    update();
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+  else init();
+})();
+</script>
+
+
+<style id="services-horizontal-v25">
+#services{overflow:hidden}
+#services .services-grid,#services .services,#services .grid{
+  display:flex!important;flex-wrap:nowrap!important;gap:14px!important;
+  overflow-x:auto!important;overflow-y:hidden!important;width:100%!important;
+  padding:10px 0 22px!important;scroll-snap-type:x mandatory!important;
+  scroll-behavior:smooth!important;-webkit-overflow-scrolling:touch!important;
+  scrollbar-width:none!important;overscroll-behavior-x:contain!important;
+}
+#services .services-grid::-webkit-scrollbar,#services .services::-webkit-scrollbar,
+#services .grid::-webkit-scrollbar{display:none!important}
+#services .services-grid>* ,#services .services>* ,#services .grid>*{
+  flex:0 0 82%!important;width:82%!important;min-width:82%!important;
+  max-width:82%!important;scroll-snap-align:center!important;
+}
+.services-nav-v25{display:flex;justify-content:center;gap:10px;margin-top:4px}
+.services-nav-v25 button{
+  width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.28);
+  background:rgba(20,20,26,.8);color:#fff;font-size:27px;line-height:1;
+  display:grid;place-items:center;cursor:pointer
+}
+.services-nav-v25 button:disabled{opacity:.25}
+@media(min-width:851px){
+ #services .services-grid>*,#services .services>*,#services .grid>*{
+  flex-basis:min(520px,68vw)!important;width:min(520px,68vw)!important;
+  min-width:min(520px,68vw)!important;max-width:min(520px,68vw)!important
+ }
+}
+@media(max-width:600px){
+ #services .services-grid,#services .services,#services .grid{gap:10px!important}
+ #services .services-grid>*,#services .services>*,#services .grid>*{
+  flex-basis:88vw!important;width:88vw!important;min-width:88vw!important;max-width:88vw!important
+ }
+}
+</style>
+<script id="services-horizontal-v25-js">
+(function(){
+ function init(){
+  var section=document.querySelector('#services'); if(!section)return;
+  var rail=section.querySelector('.services-grid,.services,.grid'); if(!rail)return;
+  var cards=Array.prototype.slice.call(rail.children); if(cards.length<2)return;
+  var old=section.querySelector('.services-nav-v25'); if(old)old.remove();
+  var nav=document.createElement('div'); nav.className='services-nav-v25';
+  nav.innerHTML='<button type="button" class="services-prev-v25" aria-label="Previous service">‹</button>'+
+                '<button type="button" class="services-next-v25" aria-label="Next service">›</button>';
+  rail.parentNode.appendChild(nav);
+  var prev=nav.querySelector('.services-prev-v25'),next=nav.querySelector('.services-next-v25');
+  function index(){
+   var center=rail.getBoundingClientRect().left+rail.clientWidth/2,best=0,dist=Infinity;
+   cards.forEach(function(c,i){var r=c.getBoundingClientRect(),d=Math.abs(r.left+r.width/2-center);
+    if(d<dist){dist=d;best=i}});
+   return best;
+  }
+  function update(){var i=index();prev.disabled=i===0;next.disabled=i===cards.length-1}
+  function go(i){i=Math.max(0,Math.min(cards.length-1,i));
+   cards[i].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});setTimeout(update,350)}
+  prev.addEventListener('click',function(){go(index()-1)});
+  next.addEventListener('click',function(){go(index()+1)});
+  rail.addEventListener('scroll',function(){requestAnimationFrame(update)},{passive:true});
+  window.addEventListener('resize',update);update();
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+
 </head>
 <body>
 <nav><div class="container nav">
