@@ -498,7 +498,7 @@ body.v20-modal-open{overflow:hidden}
 }
 </style>
 
-
+<style id="v28-signature-spacing">
 /* V28 — cleaner desktop Signature Acts spacing */
 @media (min-width: 769px){
   #acts .signature-video-btn{
@@ -514,6 +514,98 @@ body.v20-modal-open{overflow:hidden}
     margin-bottom:6px;
   }
 }
+</style>
+
+<style id="v33-contact-icons">
+.contact-links .contact-icon-link{display:flex;align-items:center;gap:14px;width:100%;box-sizing:border-box;min-height:46px;padding:10px 16px;color:#fff;text-decoration:none;border:1px solid #383840;border-radius:10px;background:#111117;font-weight:500}
+.contact-links .contact-icon{width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 38px;color:#fff}
+.contact-links .contact-icon svg{width:28px;height:28px;display:block}
+.contact-links .phone-icon{background:#25D366;border-radius:12px;color:#fff}.contact-links .phone-icon svg path{fill:#fff}
+.contact-links .email-icon{background:#25D366;border-radius:50%;color:#fff}.contact-links .email-icon svg{width:28px;height:28px}.contact-links .email-icon svg path{stroke:#fff}
+@media(max-width:768px){.contact-links .contact-icon-link{min-height:44px;padding:6px 12px}.contact-links .contact-icon{width:36px;height:36px;flex-basis:36px}.contact-links .contact-icon svg{width:27px;height:27px}}
+</style>
+<style id="v33-whatsapp-styles">
+.wa-icon{width:24px;height:24px;display:block;flex:0 0 auto;color:#fff}
+.wa-icon-wrap{width:38px;height:38px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#25D366;flex:0 0 38px}
+.wa-icon-btn{display:inline-flex!important;align-items:center;justify-content:center;gap:10px;min-height:46px;padding:7px 16px!important;color:#fff!important;text-decoration:none!important;border:1px solid #383840;border-radius:10px;background:#111117}
+.wa-icon-btn .wa-label{display:inline!important;color:#fff!important;font-weight:700;white-space:nowrap}
+.contact-links .wa-icon-btn{justify-content:flex-start;width:100%;box-sizing:border-box;margin:0;min-height:46px;padding:7px 16px!important}
+.contact-links .wa-icon-wrap{width:38px;height:38px;flex:0 0 38px}
+.contact-links .wa-icon-wrap .wa-icon{width:24px;height:24px}
+.contact-links .wa-icon-btn .wa-label{font-size:inherit;line-height:1.2}
+.wa-float{position:fixed;right:20px;bottom:20px;z-index:9999;width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#25D366;color:#fff!important;box-shadow:0 8px 28px rgba(37,211,102,.45);border:3px solid rgba(255,255,255,.95);text-decoration:none!important;transition:transform .2s ease,box-shadow .2s ease}
+.wa-float:hover{transform:scale(1.08);box-shadow:0 10px 34px rgba(37,211,102,.6)}
+.wa-float .wa-icon{width:34px;height:34px}
+@media(max-width:768px){
+  .wa-icon-btn{min-height:44px;padding:6px 12px!important}
+  .wa-icon-wrap{width:36px;height:36px;flex-basis:36px}
+  .wa-icon{width:22px;height:22px}
+  .wa-float{width:58px;height:58px;right:16px;bottom:16px}
+  .wa-float .wa-icon{width:31px;height:31px}
+}
+</style>
+<style id="v32-whatsapp-header-clean">
+/* V32: WhatsApp is intentionally removed from the header. The floating button and booking card remain. */
+nav .wa-icon-btn, nav a[href*="wa.me"], nav .whatsapp-btn, nav .whatsapp-link { display:none !important; }
+</style>
+
+
+<style id="original-gallery-horizontal-fix">
+/* Keep the original Performance Gallery section; make its existing cards horizontal. */
+#gallery{overflow:hidden}
+#gallery .gallery{
+  display:flex!important;
+  flex-wrap:nowrap!important;
+  grid-template-columns:none!important;
+  gap:16px!important;
+  width:100%!important;
+  max-width:100%!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  padding:4px 2px 18px!important;
+  scroll-snap-type:x mandatory!important;
+  scroll-behavior:smooth!important;
+  -webkit-overflow-scrolling:touch!important;
+  scrollbar-width:none!important;
+  overscroll-behavior-x:contain!important;
+}
+#gallery .gallery::-webkit-scrollbar{display:none!important}
+#gallery .gallery .g{
+  flex:0 0 86%!important;
+  width:86%!important;
+  min-width:86%!important;
+  max-width:86%!important;
+  min-height:0!important;
+  height:auto!important;
+  grid-column:auto!important;
+  scroll-snap-align:start!important;
+  border-radius:18px!important;
+  overflow:hidden!important;
+}
+#gallery .gallery .g img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  aspect-ratio:16/9!important;
+  object-fit:cover!important;
+}
+@media(min-width:851px){
+  #gallery .gallery .g{
+    flex-basis:min(620px,72vw)!important;
+    width:min(620px,72vw)!important;
+    min-width:min(620px,72vw)!important;
+  }
+}
+@media(max-width:600px){
+  #gallery .gallery{gap:14px!important}
+  #gallery .gallery .g{
+    flex-basis:88vw!important;
+    width:88vw!important;
+    min-width:88vw!important;
+    max-width:88vw!important;
+  }
+}
+</style>
 
 </head>
 <body>
@@ -525,7 +617,7 @@ onclick="window.toggleMobileMenu && window.toggleMobileMenu(event)">
 <span></span><span></span><span></span>
 </button>
 <div class="links"><a href="#home">Home</a><a href="#about">About</a><a href="#founder">Founder</a><a href="#services">Services</a><a href="#acts">Signature Acts</a><a href="#gallery">Gallery</a><a href="#contact">Book</a></div>
-<a class="btn" href="https://wa.me/918655233875?text=Hello%20Step%20N%20Style%2C%20I%20want%20to%20book%20a%20performance.">WhatsApp</a>
+
 </div></nav>
 
 <section class="hero" id="home"><div class="container hero-inner">
@@ -625,55 +717,12 @@ onclick="window.toggleMobileMenu && window.toggleMobileMenu(event)">
 </div>
 </div></section>
 
-<section id="packages"><div class="container">
-<div class="section-head"><div class="eyebrow">04 / Performance Packages</div><h2>Pick your <span class="pink">showstopper.</span></h2><p class="section-sub">Professional Bollywood entertainment packages designed around your stage, audience and event.</p></div>
 
-<div class="packages pricing-grid">
-<div class="package price-card">
-<div class="num">ESSENTIAL</div>
-<h3>4 Dancers</h3>
-<p>Perfect for intimate events & corporate moments</p>
-<div class="price"><small>Starting from</small>₹45,000</div>
-<ul><li>High-energy Bollywood performance</li><li>Professional costumes</li><li>Approx. 4–8 minute act</li></ul>
-<a class="btn" href="#contact">Enquire Now</a>
-</div>
-
-<div class="package featured price-card">
-<div class="popular">MOST POPULAR</div>
-<div class="num">SIGNATURE</div>
-<h3>6 Dancers</h3>
-<p>A bigger stage presence with more visual impact</p>
-<div class="price"><small>Starting from</small>₹65,000</div>
-<ul><li>Custom choreography</li><li>Premium group formations</li><li>Approx. 8–12 minute act</li></ul>
-<a class="btn" href="#contact">Book This</a>
-</div>
-
-<div class="package price-card">
-<div class="num">GRAND</div>
-<h3>8 Dancers</h3>
-<p>For grand celebrations & high-impact stages</p>
-<div class="price"><small>Starting from</small>₹85,000</div>
-<ul><li>Grand Bollywood production</li><li>Enhanced formations & staging</li><li>Approx. 12–15 minute act</li></ul>
-<a class="btn" href="#contact">Enquire Now</a>
-</div>
-
-<div class="package price-card custom-card">
-<div class="num">WEDDING / CUSTOM</div>
-<h3>Made for Your Event</h3>
-<p>Sangeet, theme acts, launches & special productions</p>
-<div class="price custom-price">Custom Quote</div>
-<ul><li>Wedding Sangeet packages</li><li>Props, theme acts & custom performances</li><li>Premium costumes & special requirements</li></ul>
-<a class="btn" href="#contact">Get a Custom Quote</a>
-</div>
-</div>
-
-<p class="pricing-note">Prices shown are starting estimates. Final pricing depends on event location, duration, choreography, props, costumes, production requirements and travel.</p>
-</div></section>
 
 <section class="dark" id="contact"><div class="container">
 <div class="form-area">
 <div class="contact-card"><div class="eyebrow">05 / Book Your Next Act</div><h2>Your Event.<br><span class="pink">Our Energy.</span></h2><p>Share your event details and we will prepare a tailored enquiry. The form can open WhatsApp with the complete message ready to send.</p>
-<div class="contact-links"><a href="tel:+918655233875">☎ +91 86552 33875</a><a href="mailto:stepnstyle09@gmail.com">✉ stepnstyle09@gmail.com</a><a href="https://wa.me/918655233875">💬 WhatsApp Booking</a></div></div>
+<div class="contact-links"><a href="tel:+918655233875" class="contact-icon-link"><span class="contact-icon phone-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7.3 2.8c.6-.2 1.2.1 1.5.6l2 3.7c.3.5.2 1.1-.2 1.5L9 10.1c.9 2.1 2.6 3.8 4.7 4.7l1.5-1.6c.4-.4 1-.5 1.5-.2l3.7 2c.5.3.8.9.6 1.5l-1 2.5c-.2.6-.8 1-1.4 1C10 20 4 14 4 6.4c0-.6.4-1.2 1-1.4l2.3-2.2z"/></svg></span><span>+91 86552 33875</span></a><a href="mailto:stepnstyle09@gmail.com" class="contact-icon-link"><span class="contact-icon email-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M3 5.5h18v13H3z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>stepnstyle09@gmail.com</span></a><a href="https://wa.me/918655233875" class="wa-icon-btn"><span class="wa-icon-wrap"><svg class="wa-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path fill="currentColor" d="M19.11 17.39c-.27-.14-1.59-.78-1.84-.87-.25-.09-.43-.14-.61.14-.18.27-.7.87-.86 1.05-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.26s.98 2.62 1.11 2.8c.14.18 1.93 2.95 4.68 4.14.65.28 1.16.45 1.56.58.66.21 1.26.18 1.74.11.53-.08 1.59-.65 1.81-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32z"/><path fill="currentColor" d="M16.02 3.2c-7.07 0-12.8 5.73-12.8 12.8 0 2.26.59 4.38 1.63 6.22L3.1 28.8l6.72-1.72a12.75 12.75 0 0 0 6.2 1.6h.01c7.06 0 12.8-5.74 12.8-12.8S23.09 3.2 16.02 3.2zm0 23.22h-.01a10.4 10.4 0 0 1-5.3-1.44l-.38-.23-3.99 1.02 1.07-3.89-.25-.4a10.42 10.42 0 1 1 8.86 4.94z"/></svg></span><span class="wa-label">WhatsApp Booking</span></a></div></div>
 <form class="form" id="enquiryForm">
 <div class="row"><div><label>Full Name *</label><input name="name" required placeholder="Your name"></div><div><label>Phone / WhatsApp *</label><input name="phone" required placeholder="+91"></div></div>
 <div class="row"><div><label>Event Type *</label><select name="event" required><option value="">Select</option><option>Corporate Event</option><option>Fashion Show</option><option>Wedding / Sangeet</option><option>Product Launch</option><option>Other</option></select></div><div><label>Event Date</label><input name="date" type="date"></div></div>
@@ -686,7 +735,7 @@ onclick="window.toggleMobileMenu && window.toggleMobileMenu(event)">
 </section>
 
 <footer><div class="container">© 2026 Step N Style Dance Crew • Founded by Alaimithun • Mumbai, Maharashtra • Available across Maharashtra & national destinations</div></footer>
-<a class="wa" href="https://wa.me/918655233875?text=Hello%20Step%20N%20Style%2C%20I%20want%20to%20book%20a%20performance." aria-label="WhatsApp">W</a>
+<a href="https://wa.me/918655233875?text=Hello%20Step%20N%20Style%2C%20I%20want%20to%20book%20a%20performance." aria-label="Chat on WhatsApp" class="wa-float"><svg class="wa-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path fill="currentColor" d="M19.11 17.39c-.27-.14-1.59-.78-1.84-.87-.25-.09-.43-.14-.61.14-.18.27-.7.87-.86 1.05-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.26s.98 2.62 1.11 2.8c.14.18 1.93 2.95 4.68 4.14.65.28 1.16.45 1.56.58.66.21 1.26.18 1.74.11.53-.08 1.59-.65 1.81-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32z"/><path fill="currentColor" d="M16.02 3.2c-7.07 0-12.8 5.73-12.8 12.8 0 2.26.59 4.38 1.63 6.22L3.1 28.8l6.72-1.72a12.75 12.75 0 0 0 6.2 1.6h.01c7.06 0 12.8-5.74 12.8-12.8S23.09 3.2 16.02 3.2zm0 23.22h-.01a10.4 10.4 0 0 1-5.3-1.44l-.38-.23-3.99 1.02 1.07-3.89-.25-.4a10.42 10.42 0 1 1 8.86 4.94z"/></svg></a>
 
 <script>
 document.getElementById('enquiryForm').addEventListener('submit', function(e){
@@ -804,6 +853,11 @@ document.getElementById('enquiryForm').addEventListener('submit', function(e){
   }
 })();
 </script>
+
+
+
+
+
 
 </body>
 </html>
